@@ -148,63 +148,32 @@
         </div>
 
         <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center">
-                    <ul class="nav nav-pills nav-justified">
-                        <li>
-                            <a href="https://arxiv.org/pdf/2007.12868.pdf">
-                            <img src="./index_files/paper.jpg" height="120px"><br>
-                                <h4><strong>Paper</strong></h4>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://cseweb.ucsd.edu/~viscomp/projects/CVPR21OpenRooms/video.mp4">
-                            <img src="./index_files/youtube_icon_dark.png" height="120px"><br>
-                                <h4><strong>Technical Video</strong></h4>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                            <img src="./index_files/github_pad.png" height="120px"><br>
-                                <h4><strong>Code</strong></h4>(Coming soon)
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/lzqsd/InverseRenderingOfIndoorScene">
-                            <img src="./index_files/github_pad.png" height="120px"><br>
-                                <h4><strong>Applications</strong></h4>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                            <img src="./index_files/dataNew.png" height="120px"><br>
-                                <h4><strong>Dataset</strong></h4>(Coming soon)
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-        </div>
-
-
-        <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-                    &nbsp&nbsp&nbsp
+                    Dataset Overview
                 </h3>
-                <video id="v0" width="100%" autoplay="" loop="" muted="" controls="">
-                  <source src="http://cseweb.ucsd.edu/~viscomp/projects/CVPR21OpenRooms/example.mp4" type="video/mp4">
-                </video>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Overview
-                </h3>
-                <img src="./index_files/teaser.png" class="img-responsive" alt="overview"><br>
+                <div class="text-center">
+                    <video id="v0" width="100%" autoplay="" loop="" muted="" controls="">
+                        <source src="http://cseweb.ucsd.edu/~viscomp/projects/CVPR21OpenRooms/ground-truth.mp4" type="video/mp4">
+                    </video>
+                </div> 
+                <br /><br />
                 <p class="text-justify">
-                Large-scale photorealistic datasets of indoor scenes, with ground truth geometry, materials and lighting, are important for deep learning applications in scene reconstruction and augmented reality. The associated shape, material and lighting assets can be scanned or artist-created, both of which are expensive; the resulting data is usually proprietary. We aim to make the dataset creation process for indoor scenes widely accessible, allowing researchers to transform casually acquired scans to large-scale datasets with high-quality ground truth. We achieve this by estimating consistent furniture and scene layout, ascribing high quality materials to all surfaces and rendering images with spatially-varying lighting consisting of area lights and environment maps. We demonstrate an instantiation of our approach on the publicly available ScanNet dataset. Deep networks trained on our proposed dataset achieve competitive performance for shape, material and lighting estimation on real images and can be used for photorealistic augmented reality applications, such as object insertion and material editing. Importantly, the dataset and all the tools to create such datasets from scans will be released, enabling others in the community to easily build large-scale datasets of their own.
+                This is the webpage for downloading the <a href="https://ucsd-openrooms.github.io/">OpenRooms</a> dataset. 
+                We will first introduce the rendered images and various ground-truths. Later, we will introduce how to render your own images 
+                based on the OpenRooms dataset creation pipeline. For each type of data, we offer two kinds of formats, zip files and individual folders, 
+                so that users can choose whether to download the whole dataset more efficiently or download individual folders for each scene. 
+                To download the file, we recommend the tool <a href="https://rclone.org/">Rclone</a>, otherwise users may suffer from slow downloading speed and instability. 
+                If you have any questions, please email to <a href="">openroomsdataset@gmail.com</a>.
+                </p> 
+                <p class="text-justify"> 
+                We render six versions of images for all the scenes. Those rendered results are saved in 6 folders: <b>main_xml</b>, <b>main_xml1</b>, <b>mainDiffMat_xml</b>, 
+                <b>mainDiffMat_xml1</b>, <b>mainDiffLight_xml</b> and <b>mainDiffLight_xml1</b>. All 6 versions are built with the same CAD models. <b>main_xml</b>, <b>mainDiffMat_xml</b>, 
+                <b>mainDiffLight_xml</b> share one set of camera views while <b>main_xml1</b>, <b>mainDiffMat_xml1</b> and <b>mainDiffLight_xml1</b> share the other set of camera views.
+                <b>main_xml(1)</b> and <b>mainDiffMat_xml(1)</b> have the same lighting but different materials while <b>main_xml(1)</b> and <b>mainDiffLight_xml(1)</b> have the same 
+                materials but different lighting. Both the lighting and material configuration of <b>main_xml</b> and <b>main_xml1</b> are different. We believe this configuration can 
+                potentially help us develope novel applications for image editing. An example scene from <b>main_xml</b>, <b>mainDiffMat_xml</b> and <b>mainDiffLight_xml</b> is shown 
+                in the video sequence below. 
                 </p>
             </div>
         </div>
@@ -235,28 +204,7 @@
                 </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Technical Video
-                </h3>
-                <div class="text-center">
-                    <video id="v0" width="100%" autoplay="" loop="" muted="" controls="">
-                        <source src="http://cseweb.ucsd.edu/~viscomp/projects/CVPR21OpenRooms/video.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
-        </div>
         
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Download
-                </h3>
-                <p class='text-justify'>Our paper is currently under submission. To download the dataset, please send your request to the email <a>OpenRoomsDataset@gmail.com</a>. A download link will be sent to you once the dataset is released.
-                </p>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
