@@ -228,7 +228,7 @@ im = (im.astype(np.float32 ) / 255.0) ** (2.2)</code></pre>
                 </p>
                 <p class="text-justify"> 
                 <b><a href="">Mask</a> and <a href="">Mask.zip</a>: </b>The 480 &times 460 grey scale mask (immask_*.png) for light sources. The pixel value 0 represents the region of environment maps. 
-                The pixel value 0.5 represents the region of area light. Otherwise, the pixel value will be 1. We render the ground-truth masks for <b>main_xml(1)</b> and <b>mainDiffLight_xml(1)</b>. 
+                The pixel value 0.5 represents the region of lamps. Otherwise, the pixel value will be 1. We render the ground-truth masks for <b>main_xml(1)</b> and <b>mainDiffLight_xml(1)</b>. 
                 </p>
                 <p class="text-justify"> 
                 <b><a href="">SVLighting</a>: </b>The (120 &times 16) &times (160 &times 32) per-pixel environment maps (imenv_*.hdr). The spatial resolution is 120 &times 160 while the environment map resolution is 
@@ -267,14 +267,55 @@ env = env.transpose(0, 2, 1, 3, 4)</code></pre>
                 <p class="text-justify"> 
                 <b><a href="">LightSource</a> and <a href="">LightSource.zip</a>: </b> The light source information, including geometry, shadow and direct shading of each light source. 
                 In each scene directory, light_x directory corresponds to im_x.hdr. In each light_x directory, you will see files with numbers in their names. The numbers correspond to 
-                the light source ID, i.e. if the numbers are from 0 to 4, then there are 5 light sources in this scene. 
+                the light source ID, i.e. if the IDs are from 0 to 4, then there are 5 light sources in this scene. 
                 <ul> 
                     <li>
+                        <b>Geometry: </b>We provide geometry annotation for windows and lamps (box_*.dat). To read the annotation, we can use the following python commmands. 
+                        <pre><code class="python">with open('box_0.dat', 'rb')  as fIn:
+    info = pickle.load(fIn )</code></pre>
+                        There are 3 items saved in the dictionary, which we list blow. 
+                        <ul>
+                            <li>
+                                <b>isWindow: </b>True if the light source is a window, false if the light source is a lamp. 
+                            </li> 
+                            <li>
+                                <b>box3D: </b>The 3D bounding box of the light source, including center (<b>center</b>), orientation (<b>xAxis</b>, <b>yAxis</b>, <b>zAxis</b>) and size 
+                                (<b>xLen</b>, <b>yLen</b>, <b>zLen</b>). 
+                            </li>
+                            <li>
+                                <b>box2D: </b>The 2D bounding box of the light source on the image plane (<b>x1</b>, <b>y1</b>, <b>x2</b>, <b>y2</b>). 
+                            </li>
+                        </ul>
+                        We only provide the light source geometry annotation for <b>main_xml(1)</b>
+                    </li>
+                    <li>
+                        <b>Mask: </b>The 120 &times 160 2D binary masks for light sources (mask*.png). We only provide the masks for <b>main_xml(1)</b>. 
+                    </li>
+                    <li>
+                        <b>Direct shading: </b> The 120 &times 160 direct shading for each light source (imDS*.rgbe). We provide the direction shading for <b>main_xml(1)</b> and <b>mainDiffLight_xml(1)</b>. 
+                    </li>
+                    <li>
+                        <b>Direct shading without occlusion: </b> The 120 &times 160 direct shading with outocclusion for each light source (imNoOcclu*.rgbe). We provide the direction shading for 
+                        <b>main_xml(1)</b> and <b>mainDiffLight_xml(1)</b>.
+                    </li>
+                    <li>
+                        <b>Shadow: </b>The 120 &times 160 shadow maps for each light source (imShadow*.png). We render the shadow map for <b>main_xml(1)</b> only. 
                     </li>
                 </ul>
                 </p>
             </div>
         </div>  
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Dataset Creation
+                </h3>
+                <p class="text-justify">
+                The CAD models, environment maps, materials and code required to recreate the dataset will be released soon. 
+                </p>
+            </div>
+        </div>
 
 
         <div class="row">
