@@ -248,18 +248,39 @@ env = env.transpose(0, 2, 1, 3, 4)</code></pre>
                 </p>
                 <p class="text-justify"> 
                 <b><a href="">Shading</a> and <a href="">Shading.zip</a>: </b>The 120 &times 160 diffuse shading (imshading_*.hdr) computed by intergrating the per-pixel environment maps. 
-                To read the shading, please use the python code below. 
-                <pre><code class="python">im = cv2.imread('imshading_1.hdr', -1)[:, :, ::-1]</code></pre>  
                 We render shading for <b>main_xml(1)</b>, <b>mainDiffMat_xml(1)</b> and <b>mainDiffLight_xml(1)</b>.
                 </p> 
                 <p class="text-justify"> 
-                <b><a href="">SVLightingDirect</a> and <a href="">SVLightingDirect.zip</a>: </b> The per-pixel environment maps with direct illumination only. 
+                <b><a href="">SVLightingDirect</a> and <a href="">SVLightingDirect.zip</a>: </b> The (30 &times 16) &times (40 &times 32) per-pixel environment maps with direct illumination (imenvDirect_*.hdr) only. 
+                The spatial resolution is 30 &times 40 while the environment maps resolution is 16 &times 32. The direct per-pixel environment maps can be load the same way as the per-pixel environment maps. 
+                We only render direct per-pixel environment maps for <b>main_xml(1)</b> and <b>mainDiffLight_xml(1)</b> because the direct illumination of <b>mainDiffMat_xml(1)</b> is the same as <b>main_xml(1)</b>. 
                 </p>
                 <p class="text-justify"> 
-                <b><a href="">ShadingDirect</a> and <a href="">ShadingDirect.zip</a>: </b>
+                <b><a href="">ShadingDirect</a> and <a href="">ShadingDirect.zip</a>: </b> The 120 &times 160 direct shading (imshadingDirect_*.rgbe). To load the direct shading, we can 
+                use the following python command. 
+                <pre><code class="python">im = cv2.imread('imshadingDirect_1.rgbe', -1)[:, :, ::-1]</code></pre>  
+                </p> 
+                <p class="text-justify"> 
+                <b><a href="">SemanticLabel</a> and <a href="">SemanticLabel.zip</a>: </b>The 480 &times 640 semantic segmentation label (imsemLabel_*.npy). We provide semantic labels for 45 classes of commonly 
+                seen objects and layout for indoor scenes. The 45 classes can be found in <a href="">semanticLabels.txt</a>. We only render the semantic labels for <b>main_xml(1)</b>. 
                 </p>
                 <p class="text-justify"> 
-                <b><a href="">LightSource</a> and <a href="">LightSource.zip</a>: </b>
+                <b><a href="">LightSource</a> and <a href="">LightSource.zip</a>: </b> The light source information, including geometry, shadow and direct shading of each light source. 
+                In each scene directory, light_x directory corresponds to im_x.hdr. In each light_x directory, you will see files with numbers in their names. The numbers correspond to 
+                the light source ID, i.e. if the numbers are from 0 to 4, then there are 5 light sources in this scene.
+                </p>
+            </div>
+        </div>  
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Related Datasets
+                </h3>
+                <p class="text-justify">
+                The OpenRooms dataset is built on the following datasets. 
+
                 </p>
             </div>
         </div>
@@ -269,8 +290,9 @@ env = env.transpose(0, 2, 1, 3, 4)</code></pre>
                 <h3>
                     Acknowledgments
                 </h3>
+                <p class="text-justify">
                 The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a>.
-                <p></p>
+                </p>
             </div>
         </div>
     </div>
