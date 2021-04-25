@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./index_files/font-awesome.min.css">
     <link rel="stylesheet" href="./index_files/codemirror.min.css">
     <link rel="stylesheet" href="./index_files/app.css">
-    <link rel="stylesheet" href="./index_files/bootstrap.min(1).css">
+    <link rel="stylesheet" href="./index_files/bootstrap.min(1).css"> 
 
     <script type="text/javascript" async="" src="./index_files/analytics.js"></script>
     <script type="text/javascript" async="" src="./index_files/analytics(1).js"></script>
@@ -29,8 +29,10 @@
     <script src="./index_files/bootstrap.min.js"></script>
     <script src="./index_files/codemirror.min.js"></script>
     <script src="./index_files/clipboard.min.js"></script>
-
-    <script src="./index_files/app.js"></script>
+    <script src="./index_files/app.js"></script> 
+    <link rel="stylesheet" href="./index_files/default.min.css">
+    <script src="./index_files/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body data-gr-c-s-loaded="true">
@@ -175,32 +177,74 @@
                 potentially help us develope novel applications for image editing. An example scene from <b>main_xml</b>, <b>mainDiffMat_xml</b> and <b>mainDiffLight_xml</b> is shown 
                 in the video sequence below. 
                 </p>
+                <div class="text-center">
+                    <video id="v0" width="100%" autoplay="" loop="" muted="" controls="">
+                        <source src="http://cseweb.ucsd.edu/~viscomp/projects/CVPR21OpenRooms/DifferentVersions.mp4" type="video/mp4">
+                    </video>
+                </div> 
             </div>
         </div>
         
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-                    Highlights
-                </h3>
+                    Rendered Images and Ground-truth
+                </h3> 
                 <p class="text-justify">
-                    <ul>
-                        <li>
-                            A dataset with high-quality ground truth SVBRDF and spatially-varying lighting. 
-                        </li>
-                        <li>
-                            Photorealistic rendering with a GPU-accelerated physically-based renderer. 
-                        </li>
-                        <li>
-                            Goal of open dataset with no proprietary assets, along with tools for users to create their own datasets.
-                        </li>
-                        <li>
-                            State-of-the-art performance when used as training data for inverse rendering tasks.
-                        </li>
-                        <li>
-                            All code, trained models, rendered images and other ground truth to be publicly available.
-                        </li>
-                    </ul>
+                All rendered images and the corresponding ground-truth are saved in folder <a href="">data/rendering/data/</a>. In the following, we will detail each type of rendered data and 
+                how to read and interpret them.  
+                </p>
+                <p class="text-justify"> 
+                <b><a href="">Images</a> and <a href="">Images.zip</a>: </b> 
+                The 480 &times 640 HDR images (im_*.hdr), which can be read with the python command. 
+                <pre><code= class="python">im = cv2.imread('im_1.hdr', -1)[:, :, ::-1]</code></pre>
+                We render images for <b>main_xml(1)</b>, <b>mainDiffMat_xml(1)</b> and <b>mainDiffLight_xml(1)</b>. 
+                </p>
+                <p class="text-justify"> 
+                <b><a href="">Material</a> and <a href="">Material.zip</a>: </b> The 480 &times 640 diffuse albedo maps (imbaseColor_*.png) and roughness map (imroughness_*.png). Note that 
+                the diffuse albedo map is saved in sRGB space. To load it into linear RGB space, we can use the following python commands. The roughness map is saved in linear space and can 
+                be read directly.
+                <pre><code= class="python">im = cv2.imread('imbaseColor_1.hdr')[:, :, ::-1]
+im = (im.astype(np.float32 ) / 255.0) ** (2.2)</code></pre> 
+                We only render the diffuse albedo maps and roughness maps for <b>main_xml(1)</b> and <b>mainDiffMat_xml(1)</b> because <b>mainDiffLight_xml(1)</b> share the same material maps 
+                with the <b>main_xml(1)</b>. 
+                </p>
+                <p class="text-justify">  
+                <b><a href="">Geometry</a> and <a href="">Geometry.zip</a>: </b>The 480 &times 640 normal maps (imnomral_*.png) and depth maps (imdepth_*.dat). The R, G, B channel of the normal 
+                map corresponds to right, up, backward direction of the image plane. To load the depth map, we can use the following python commands.  
+                <pre><code= class="python">with open('imdepth_1.dat', 'rb') as fIn:
+    # Read the height and width of depth
+    hBuffer = fIn.read(4)
+    height = struct.unpack('i', hBuffer)[0]
+    wBuffer = fIn.read(4)
+    width = struct.unpack('i', wBuffer)[0]
+    # Read depth 
+    dBuffer = fIn.read(4 * width * height )
+    depth = np.array(struct.unpack('f' * height * width, dBuffer ), dtype=np.float32 )
+    depth = depth.reshape(height, width)</code></pre>   
+                We render normal maps for <b>main_xml(1)</b> and <b>mainDiffMat_xml(1)</b>, and depth maps for <b>main_xml(1)</b>. 
+                </p>
+                <p class="text-justify"> 
+                <b><a href="">Mask</a> and <a href="">Mask.zip</a>: </b>The 480 &times 460 grey scale mask (immask_*.png) for light sources. The pixel value 0 represents the region of environment maps. 
+                The pixel value 0.5 represents the region of area light. Otherwise, the pixel value will be 1. We render the ground-truth masks for <b>main_xml(1)</b> and <b>mainDiffLight_xml(1)</b>.
+                </p>
+                <p class="text-justify"> 
+                <b><a href="">SVLighting</a>: </b>
+                </p>
+                <p class="text-justify"> 
+                <b><a href="">SVSG</a> and <a href="">SVSG.zip</a>: </b>
+                </p>
+                <p class="text-justify"> 
+                <b><a href="">Shading</a> and <a href="">Shading.zip</a>: </b>
+                </p>
+                <p class="text-justify"> 
+                <b><a href="">ShadingDirect</a> and <a href="">ShadingDirect.zip</a>: </b>
+                </p>
+                <p class="text-justify"> 
+                <b><a href="">SVLightingDirect</a> and <a href="">SVLightingDirect.zip</a>: </b>
+                </p>
+                <p class="text-justify"> 
+                <b><a href="">LightSource</a> and <a href="">LightSource.zip</a>: </b>
                 </p>
             </div>
         </div>
